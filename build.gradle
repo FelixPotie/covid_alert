@@ -2,11 +2,20 @@ plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'com.bmuschko.docker-java-application' version '6.6.1'
 }
 
 group = 'fr.polytech.iwa'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+docker {
+	javaApplication {
+		baseImage = 'openjdk'
+		ports = [8080, 5432]
+		images = ["felixpotie/covid_alert:${project.version}"]
+	}
+}
 
 repositories {
 	mavenCentral()

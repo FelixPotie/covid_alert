@@ -3,7 +3,7 @@ version: '3'
 services:
   postgres:
     image: postgres:latest
-    container_name: covid_alert
+    container_name: covid_alert_db
     ports:
     - '5432:5432'
     environment:
@@ -11,8 +11,8 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES: postgres
   gradle:
-    image: jar_app
+    image: felixpotie/covid_alert
     ports:
     - '8080:8080'
     environment:
-      dburl: postgres:5432/covid_alert
+      dburl: postgres:5432/covid_alert_db
