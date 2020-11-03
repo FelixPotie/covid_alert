@@ -5,14 +5,30 @@ services:
     image: postgres:latest
     container_name: covid_alert_db
     ports:
-    - '5432:5432'
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES: postgres
-  gradle:
-    image: felixpotie/covid_alert:0.0.1-SNAPSHOT
-    ports:
-    - '8080:8080'
+
+#  gradle:
+#    image: felixpotie/covid_alert:0.0.1-SNAPSHOT
+#    ports:
+#      - 8085:8085
+#    environment:
+#      dburl: postgres:5432/covid_alert_db
+
+  keycloak:
+    image: jboss/keycloak:11.0.2
     environment:
-      dburl: postgres:5432/covid_alert_db
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_SCHEMA: public
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+
+    ports:
+    - 8080:8080
