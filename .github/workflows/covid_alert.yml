@@ -5,14 +5,14 @@ on: push
 jobs:
   ci:
     runs-on : ubuntu-latest
-    container: openjdk:8-jdk
+    container: openjdk:11-jdk
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: tp_devops
-          POSTGRES_USER: tp_devops
-          POSTGRES_PASSWORD: tp_devops
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES: postgres
     steps:
       - uses: actions/checkout@v2
       - run : ./gradlew assemble
