@@ -4,7 +4,7 @@ ENV dburl 127.0.0.1:5432/covid_alert
 ENV dbname covid_alert
 ENV dbpwd covid_alert
 
-EXPOSE 8080
+EXPOSE 8085
 
 ADD /build/libs/covid_alert-0.0.1-SNAPSHOT.jar /
 
