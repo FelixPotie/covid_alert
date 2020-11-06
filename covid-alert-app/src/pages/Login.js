@@ -70,64 +70,58 @@ function Login() {
        history.push('/home')
     }
     return (
-        <div>
-            <ThemeProvider theme={appTheme}>
-                <StylesProvider injectFirst>
-                    <Grid container >
-                        <Grid item xs={2}>
-                        </Grid>
-                        <Grid item xs={8}>
-                            <Title>Welcome To CovidAlert</Title>
-                        </Grid>
-                        <Grid item xs={2}>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={4}>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <StyledBox>
-                                <StyledImage src={covidAlertLogo} alt="Logo" />
-                            </StyledBox>
-                            <SubTitle>Login</SubTitle>
-                            <StyledTextField
-                                id="email-input"
-                                label="Email"
-                                type="email"
-                                variant="outlined"
-                                fullWidth
-                            />
-                            <VerticalSpacer spacing={6} />
-                            <StyledTextField
-                                id="password-input"
-                                label="Password"
-                                type="password"
-                                variant="outlined"
-                                fullWidth
-                            />
-                            <VerticalSpacer spacing={6} />
-                            <StyledBox>
-                                <CaButton color={"red"} kind={"primary"} onClick={()=>login()}>Login
+        <Grid container >
+            <Grid container >
+                <Grid item xs={2}>
+                </Grid>
+                <Grid item xs={8}>
+                    <Title>Welcome To CovidAlert</Title>
+                </Grid>
+                <Grid item xs={2}>
+                </Grid>
+            </Grid>
+            <Grid container>
+                <Grid item xs={4}>
+                </Grid>
+                <Grid item xs={4}>
+                    <StyledBox>
+                        <StyledImage src={covidAlertLogo} alt="Logo" />
+                    </StyledBox>
+                    <SubTitle>Login</SubTitle>
+                    <StyledTextField
+                        id="email-input"
+                        label="Email"
+                        type="email"
+                        variant="outlined"
+                        fullWidth
+                    />
+                    <VerticalSpacer spacing={6} />
+                    <StyledTextField
+                        id="password-input"
+                        label="Password"
+                        type="password"
+                        variant="outlined"
+                        fullWidth
+                    />
+                    <VerticalSpacer spacing={6} />
+                    <StyledBox>
+                        <CaButton color={"blue"} kind={"primary"} onClick={()=>login()}>Login
 
-                                </CaButton>
+                        </CaButton>
 
-                            </StyledBox>
-                            <VerticalSpacer spacing={2} />
-                            <StyledBox>
-                                <Caption>Don’t have an account yet ?<StyledLink to="registration"> Create an account</StyledLink>  </Caption>
-                            </StyledBox>
+                    </StyledBox>
+                    <VerticalSpacer spacing={2} />
+                    <StyledBox>
+                        <Caption>Don’t have an account yet ?<StyledLink to="registration"> Create an account</StyledLink>  </Caption>
+                    </StyledBox>
 
-                        </Grid>
-                        <Grid item xs={4}>
-                        </Grid>
+                </Grid>
+                <Grid item xs={4}>
+                </Grid>
 
-                    </Grid>
-                </StylesProvider>
-            </ThemeProvider>
+            </Grid>
+        </Grid>
 
-
-
-        </div>
     );
 }
 
