@@ -18,6 +18,7 @@ interface CaButtonProps {
     onClick?: MouseEventHandler;
     color?:String;
     kind?: String;
+    margin?:String;
 
 }
 
@@ -30,6 +31,7 @@ const StyledButton = styled(
          neutralBackgroundColor,
          neutralBorderColor,
          textColor,
+         margin,
          ...otherProps
      }) => <Button ref={forwardRef} {...otherProps} />
 )`
@@ -41,6 +43,7 @@ const StyledButton = styled(
     color: ${(props) => props.textColor};
     font-size: 16px;
     text-transform: none;
+    margin:${(props) => props.margin};
 
     :hover,
     &.hover {
@@ -66,6 +69,8 @@ const CaButton: React.FunctionComponent<CaButtonProps> = React.forwardRef((props
     let neutralBackgroundColor = '';
     let neutralBorderColor = '';
     let textColor = '';
+    let margin=props.margin?props.margin:"";
+
 
     const kind = props.kind? props.kind  :"primary" ;
 
@@ -133,7 +138,9 @@ const CaButton: React.FunctionComponent<CaButtonProps> = React.forwardRef((props
             hoverBorderColor={hoverBorderColor}
             neutralBackgroundColor={neutralBackgroundColor}
             neutralBorderColor={neutralBorderColor}
+            margin={margin}
             textColor={textColor}>
+
             {props.children ?props.children: ''}
         </StyledButton>
 

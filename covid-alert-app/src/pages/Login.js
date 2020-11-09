@@ -1,8 +1,6 @@
 import React  from 'react';
 import CaButton from "../commonComponents/CaButton";
-import { StylesProvider } from '@material-ui/core';
-import styled, {ThemeProvider} from 'styled-components';
-import {appTheme} from '../commonComponents/AppTheme';
+import styled from 'styled-components';
 import Grid from "@material-ui/core/Grid";
 import { blueDark, redDark} from "../commonComponents/Colors";
 import VerticalSpacer from "../commonComponents/VerticalSpacer";

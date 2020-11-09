@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid} from "@material-ui/core";
 import styled from "styled-components";
-import {blueDark, blueLight, grey5} from "./Colors";
+import {blueLight, grey5} from "./Colors";
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import Box from "@material-ui/core/Box";
 import VerticalSpacer from "./VerticalSpacer";
