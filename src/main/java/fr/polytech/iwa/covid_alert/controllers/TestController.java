@@ -2,9 +2,7 @@ package fr.polytech.iwa.covid_alert.controllers;
 
 
 import fr.polytech.iwa.covid_alert.models.Test;
-import fr.polytech.iwa.covid_alert.models.User;
 import fr.polytech.iwa.covid_alert.services.TestService;
-import fr.polytech.iwa.covid_alert.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
