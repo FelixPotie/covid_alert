@@ -4,18 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
-@Entity(name="users")
+@Entity(name="user_entity")
 @Access(AccessType.FIELD)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_id;
+    private String id;
     private String first_name;
     private String last_name;
     private String email;
-    private String phone_number;
-    private String password;
 
 
 
@@ -23,12 +21,12 @@ public class User {
     // ---------------------------- GETTER & SETTER -------------------------------
 
 
-    public long getUser_id() {
-        return user_id;
+    public String  getUser_id() {
+        return id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUser_id(String user_id) {
+        this.id = user_id;
     }
 
     public String getFirst_name() {
@@ -55,19 +53,4 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
