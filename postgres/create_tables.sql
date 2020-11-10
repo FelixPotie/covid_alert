@@ -1,13 +1,13 @@
 CREATE TABLE alerts(
     alert_id serial NOT NULL PRIMARY KEY,
-    contamination_date time without time zone NOT NULL,
-    alert_date time without time zone NOT NULL,
+    contamination_date DATE NOT NULL,
+    alert_date DATE NOT NULL,
     user_id varchar(36) NOT NULL REFERENCES user_entity (id)
 );
 
 CREATE TABLE tests(
     test_id serial PRIMARY KEY,
-    test_date time without time zone NOT NULL,
+    test_date DATE NOT NULL,
     user_id varchar(36) NOT NULL REFERENCES user_entity (id)
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE locations(
     location_id serial PRIMARY KEY,
     latitude numeric(18, 16) NOT NULL,
     longitude numeric(18, 16) NOT NULL,
-    location_date time without time zone NOT NULL,
+    location_date DATE NOT NULL,
     user_id varchar(36) NOT NULL REFERENCES user_entity (id)
 );
 

@@ -13,7 +13,7 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long test_id;
     private Date test_date;
-    private long user_id;
+    private String user_id;
 
 
 
@@ -35,11 +35,11 @@ public class Test {
         this.test_date = test_date;
     }
 
-    public long getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 }
