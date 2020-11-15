@@ -1,29 +1,12 @@
 package fr.polytech.iwa.covid_alert.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
 import java.util.Date;
 
-//@Entity(name = "locations")
-//@Access(AccessType.FIELD)
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Location {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long location_id;
     private double latitude;
     private double longitude;
     private Date location_date;
     private String user_id;
-
-//    public long getLocation_id() {
-//        return location_id;
-//    }
-//
-//    public void setLocation_id(long location_id) {
-//        this.location_id = location_id;
-//    }
 
     public double getLatitude() {
         return latitude;
@@ -55,5 +38,9 @@ public class Location {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String toString() {
+        return "Location : ["+user_id+", "+latitude+", "+longitude+", "+location_date+"]";
     }
 }
