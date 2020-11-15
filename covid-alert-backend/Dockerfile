@@ -1,8 +1,8 @@
 FROM openjdk
 
-ENV dburl 127.0.0.1:5432/covid_alert
-ENV dbname covid_alert
-ENV dbpwd covid_alert
+ENV dburl 127.0.0.1:5432/postgres
+ENV dbname postgres
+ENV dbpwd postgres
 
 EXPOSE 8085
 
