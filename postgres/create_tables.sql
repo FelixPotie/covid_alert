@@ -26,6 +26,19 @@ CREATE TABLE contacts(
     contact_date DATE NOT NULL
 );
 
+CREATE FUNCTION contacts_delete_old_rows() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  DELETE FROM contacts WHERE contact_date < NOW() - INTERVAL '7 days';
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER contacts_delete_old_rows_trigger
+    AFTER INSERT ON contacts
+    EXECUTE PROCEDURE contacts_delete_old_rows();
+
 INSERT INTO user_entity(id,first_name,last_name,email) VALUES('1','Chouki','Tibermacine','chouki.tibermacine@test.com');
 INSERT INTO user_entity(id,first_name,last_name,email) VALUES('2','Mathis','Bourrat','mathis.bourrat@etu.umontpellier.fr');
 INSERT INTO user_entity(id,first_name,last_name,email) VALUES('3','Félix','Potie','felix.potie@etu.umontpellier.fr');
