@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    List<Contact> findContactsByFirst_user_idOrSecond_user_idAndContact_dateAfter(String first_user_id, String second_user_id, Date date);
+    List<Contact> findContactsByFirst_user_idOrSecond_user_idAndContact(String first_user_id, String second_user_id);
 
 }
