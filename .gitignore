@@ -1,6 +1,7 @@
 HELP.md
-.gradle
 build/
+covid-alert-backend/.gradle/
+covid-alert-backend/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -19,6 +20,7 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+covid-alert-backend/.idea
 *.iws
 *.iml
 *.ipr
