@@ -19,6 +19,13 @@ CREATE TABLE locations(
     user_id varchar(36) NOT NULL REFERENCES user_entity (id)
 );
 
+CREATE TABLE contacts(
+    contact_id serial NOT NULL PRIMARY KEY,
+    first_user_id varchar(36) NOT NULL REFERENCES user_entity (id),
+    second_user_id varchar(36) NOT NULL REFERENCES user_entity (id),
+    contact_date DATE NOT NULL
+);
+
 INSERT INTO user_entity(id,first_name,last_name,email) VALUES('1','Chouki','Tibermacine','chouki.tibermacine@test.com');
 INSERT INTO user_entity(id,first_name,last_name,email) VALUES('2','Mathis','Bourrat','mathis.bourrat@etu.umontpellier.fr');
 INSERT INTO user_entity(id,first_name,last_name,email) VALUES('3','Félix','Potie','felix.potie@etu.umontpellier.fr');
