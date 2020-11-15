@@ -12,14 +12,14 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES: postgres
 
-  gradle:
-    image: felixpotie/covid_alert:0.0.1-SNAPSHOT
-    ports:
-      - 8085:8085
-    depends_on:
-      - postgres
-    environment:
-      dburl: postgres:5432/postgres
+#  gradle:
+#    image: felixpotie/covid_alert:0.0.1-SNAPSHOT
+#    ports:
+#      - 8085:8085
+#    depends_on:
+#      - postgres
+#    environment:
+#      dburl: postgres:5432/postgres
 
   keycloak:
     image: jboss/keycloak:11.0.2
