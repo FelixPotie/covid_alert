@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/contacts")
@@ -41,8 +43,8 @@ public class ContactController {
      * @return all the contacts of the user during the last week
      */
     @GetMapping(value = "/user/{id}")
-    public List<User> getContacts(@PathVariable String id){
-        return contactService.getContacts(id);
+    public Map<User, Date> getContacts(@PathVariable String id){
+        return contactService.getContactsWithDate(id);
     }
 
     /**
@@ -50,7 +52,7 @@ public class ContactController {
      *  json data :
      *      - long contact_id
      *      - String first_user_id
-     *      - String first_user_id
+     *      - String second_user_id
      *      - Date contact_date
      * @param contact Contact
      * @return the Contact created

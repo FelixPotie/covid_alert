@@ -5,8 +5,6 @@ import fr.polytech.iwa.covid_alert.repositories.AlertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -39,7 +37,7 @@ public class AlertService {
 
     /**
      *
-     * @param user_id
+     * @param user_id String
      * @return the alert of the user with the id
      */
     public List<Alert> getAlertByUserId(String user_id) {
