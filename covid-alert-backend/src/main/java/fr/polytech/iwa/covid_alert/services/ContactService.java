@@ -47,7 +47,7 @@ public class ContactService {
      * @param user_id String
      * @return all the contacts of the user during the last week
      */
-    public List<User> getContacts(@PathVariable String user_id){
+    public List<User> getContacts(String user_id){
         List<Contact> contacts = contactRepository.findContactsByFirst_user_idOrSecond_user_idAndContact(user_id, user_id);
         List<User> contacts_cases = new ArrayList<User>();
         contacts.forEach(contact -> {
@@ -66,14 +66,14 @@ public class ContactService {
      * @param contact Contact
      * @return the Contact created
      */
-    public Contact createContact(@RequestBody final Contact contact){
+    public Contact createContact( final Contact contact){
         return contactRepository.saveAndFlush(contact);
     }
 
     /**
      * @param id Long
      */
-    public void deleteContact(@PathVariable Long id){
+    public void deleteContact( Long id){
         contactRepository.deleteById(id);
     }
 

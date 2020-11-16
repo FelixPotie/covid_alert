@@ -1,7 +1,9 @@
 package fr.polytech.iwa.covid_alert.services;
 
 
+import fr.polytech.iwa.covid_alert.models.Contact;
 import fr.polytech.iwa.covid_alert.models.Test;
+import fr.polytech.iwa.covid_alert.models.User;
 import fr.polytech.iwa.covid_alert.repositories.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +21,10 @@ public class TestService {
 
     @Autowired
     private TestRepository testRepository;
+    @Autowired
+    private ContactService contactService;
+    @Autowired
+    private MailService mailService;
 
     /**
      * @param id Long
@@ -49,14 +56,24 @@ public class TestService {
      * @param test Test
      * @return the Test created
      */
-    public Test createTest(@RequestBody final Test test){
+    public Test createTest( final Test test){
+        String user_id=test.getUser_id();
+        List<User> contacts_cases  = contactService.getContacts(user_id);
+        List<String> mails_contacts = new ArrayList<String> ();
+        contacts_cases.forEach(contact -> {
+            mails_contacts.add(contact.getEmail());
+        });
+        mails_contacts.forEach(mail -> {
+            mailService.sendEmail(mail);
+        });
         return testRepository.saveAndFlush(test);
+
     }
 
     /**
      * @param id Long
      */
-    public void deleteTest(@PathVariable Long id){
+    public void deleteTest( Long id){
         testRepository.deleteById(id);
     }
 
