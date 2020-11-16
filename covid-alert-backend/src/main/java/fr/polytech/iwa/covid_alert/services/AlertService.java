@@ -55,7 +55,7 @@ public class AlertService {
      * @param alert Alert
      * @return the alert created
      */
-    public Alert createAlert(@RequestBody final Alert alert){
+    public Alert createAlert( final Alert alert){
         return alertRepository.saveAndFlush(alert);
     }
 
@@ -63,7 +63,7 @@ public class AlertService {
      *
      * @param id Long
      */
-    public void deleteAlert(@PathVariable Long id){
+    public void deleteAlert( Long id){
         alertRepository.deleteById(id);
     }
 
