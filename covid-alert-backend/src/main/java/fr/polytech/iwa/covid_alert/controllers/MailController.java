@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 @RestController
 @RequestMapping("api/mails")
@@ -18,6 +21,7 @@ public class MailController {
 
     @PostMapping(value = "/{mail}")
     public void send(@PathVariable String mail) {
-       mailService.sendEmail(mail);
+        Date date = Date.valueOf(LocalDate.now());
+        mailService.sendEmail(mail,date);
     }
 }

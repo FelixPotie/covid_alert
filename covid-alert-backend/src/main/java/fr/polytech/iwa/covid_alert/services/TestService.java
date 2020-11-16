@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TestService {
@@ -54,20 +56,17 @@ public class TestService {
      *      - Date test_date
      *      - String user_id
      * @param test Test
-     * @return the Test created
+     * @return the Test created - an email is send to all the contact cases
      */
     public Test createTest( final Test test){
         String user_id=test.getUser_id();
-        List<User> contacts_cases  = contactService.getContacts(user_id);
-        List<String> mails_contacts = new ArrayList<String> ();
-        contacts_cases.forEach(contact -> {
-            mails_contacts.add(contact.getEmail());
+        //List<User> contacts_cases  = contactService.getContacts(user_id);
+        Map<User, Date> contacts_cases = contactService.getContactsWithDate(user_id);
+        contacts_cases.forEach((contact,date) -> {
+            mailService.sendEmail(contact.getEmail(),date);
         });
-        mails_contacts.forEach(mail -> {
-            mailService.sendEmail(mail);
-        });
-        return testRepository.saveAndFlush(test);
 
+        return testRepository.saveAndFlush(test);
     }
 
     /**

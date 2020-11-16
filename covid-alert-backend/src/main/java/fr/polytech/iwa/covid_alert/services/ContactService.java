@@ -41,19 +41,6 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
-    /**
-     * @param user_id String
-     * @return all the contacts of the user during the last week
-     */
-    public List<User> getContacts(String user_id){
-        List<Contact> contacts = contactRepository.findContactsByFirst_user_idOrSecond_user_idAndContact(user_id, user_id);
-        List<User> contacts_cases = new ArrayList<User>();
-        contacts.forEach(contact -> {
-            if(!contact.getFirst_user_id().equals(user_id)) contacts_cases.add(userService.getUser(contact.getFirst_user_id()));
-            if(!contact.getSecond_user_id().equals(user_id)) contacts_cases.add(userService.getUser(contact.getSecond_user_id()));
-        });
-        return contacts_cases;
-    }
 
     /**
      * @param user_id String
