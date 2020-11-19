@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ContactService {
@@ -43,17 +41,24 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
+
     /**
      * @param user_id String
-     * @return all the contacts of the user during the last week
+     * @return all the contacts of the user with the oldest date of contamination
      */
-    public List<User> getContacts(@PathVariable String user_id){
+    public Map<User, Date> getContactsWithDate(String user_id){
         List<Contact> contacts = contactRepository.findContactsByFirst_user_idOrSecond_user_idAndContact(user_id, user_id);
-        List<User> contacts_cases = new ArrayList<User>();
-        contacts.forEach(contact -> {
-            if(!contact.getFirst_user_id().equals(user_id)) contacts_cases.add(userService.getUser(contact.getFirst_user_id()));
-            if(!contact.getSecond_user_id().equals(user_id)) contacts_cases.add(userService.getUser(contact.getSecond_user_id()));
-        });
+        Map<User, Date> contacts_cases = new HashMap<User, Date>();
+        contacts.forEach(contact ->{
+            User u;
+            if(!contact.getFirst_user_id().equals(user_id)) u = userService.getUser(contact.getFirst_user_id());
+            else u = userService.getUser(contact.getSecond_user_id());
+            if(contacts_cases.containsKey(u) && contacts_cases.get(u).after(contact.getContact_date())){
+                contacts_cases.replace(u,contact.getContact_date());
+            } else {
+                contacts_cases.putIfAbsent(u, contact.getContact_date());
+            }
+        } );
         return contacts_cases;
     }
 
@@ -66,14 +71,14 @@ public class ContactService {
      * @param contact Contact
      * @return the Contact created
      */
-    public Contact createContact(@RequestBody final Contact contact){
+    public Contact createContact( final Contact contact){
         return contactRepository.saveAndFlush(contact);
     }
 
     /**
      * @param id Long
      */
-    public void deleteContact(@PathVariable Long id){
+    public void deleteContact( Long id){
         contactRepository.deleteById(id);
     }
 
