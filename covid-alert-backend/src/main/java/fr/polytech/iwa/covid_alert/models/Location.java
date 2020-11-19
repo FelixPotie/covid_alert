@@ -8,6 +8,16 @@ public class Location {
     private Date location_date;
     private String user_id;
 
+    public Location() {
+    }
+
+    public Location(double latitude, double longitude, Date location_date, String user_id) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.location_date = location_date;
+        this.user_id = user_id;
+    }
+
     public double getLatitude() {
         return latitude;
     }
