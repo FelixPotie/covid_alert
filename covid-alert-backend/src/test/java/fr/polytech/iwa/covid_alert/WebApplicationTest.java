@@ -21,10 +21,10 @@ public class WebApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/api/users")).andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"first_name\":\"Chouki\",\"last_name\":\"Tibermacine\",\"email\":\"chouki.tibermacine@test.com\",\"user_id\":\"1\"}")));
-    }
+//    @Test
+//    public void shouldReturnDefaultMessage() throws Exception {
+//        this.mockMvc.perform(get("/api/users")).andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().string(containsString("{\"first_name\":\"Chouki\",\"last_name\":\"Tibermacine\",\"email\":\"chouki.tibermacine@test.com\",\"user_id\":\"1\"}")));
+//    }
 }

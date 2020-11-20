@@ -15,12 +15,12 @@ public class HttpRequestTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(
-                this.restTemplate.getForObject(
-                        "http://localhost:"+port+"/api/users",
-                        String.class)
-        ).contains("{\"first_name\":\"Chouki\",\"last_name\":\"Tibermacine\",\"email\":\"chouki.tibermacine@test.com\",\"user_id\":\"1\"}");
-    }
+//    @Test
+//    public void greetingShouldReturnDefaultMessage() throws Exception {
+//        assertThat(
+//                this.restTemplate.getForObject(
+//                        "http://localhost:"+port+"/api/users",
+//                        String.class)
+//        ).contains("{\"first_name\":\"Chouki\",\"last_name\":\"Tibermacine\",\"email\":\"chouki.tibermacine@test.com\",\"user_id\":\"1\"}");
+//    }
 }
