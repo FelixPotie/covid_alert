@@ -47,6 +47,12 @@ services:
       DB_PASSWORD: postgres
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/realm_import/realm-export.json
 
     ports:
-    - 8080:8080
+      - 8080:8080
+
+    volumes:
+      - ./config-keycloak/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+      - ./config-keycloak/themes/covid_alert:/opt/jboss/keycloak/themes/covid_alert
+      - ./config-keycloak/realm_import:/tmp/realm_import

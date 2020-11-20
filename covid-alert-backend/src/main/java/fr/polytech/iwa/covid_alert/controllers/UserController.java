@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("api/users")
 public class UserController {
@@ -33,7 +34,7 @@ public class UserController {
      * @return all the users
      */
     @GetMapping
-    public List<User> get() {
+    public List<User> getAll() {
         return userService.getAllUsers();
     }
 
