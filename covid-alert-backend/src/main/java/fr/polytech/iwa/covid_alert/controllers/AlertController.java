@@ -15,31 +15,12 @@ public class AlertController {
     @Autowired
     private AlertService alertService;
 
-    /**
-     * GET api/alerts/{id}
-     * @param id Long
-     * @return the alert by id
-     */
-    @GetMapping(value = "/{id}")
-    public Alert get(@PathVariable Long id) {
-        return alertService.getAlert(id);
-    }
-
-    /**
-     * GET api/alerts/
-     * @return all the alerts
-     */
-    @GetMapping
-    public List<Alert> get() {
-        return alertService.getAllAlerts();
-    }
 
     /**
      * GET api/alert/user/{id}
      * @param user_id String
      * @return all the alerts linked to this user
      */
-
     @GetMapping(value = "/user/{user_id}")
     public List<Alert> getByUserId(@PathVariable String user_id){
         return alertService.getAlertByUserId(user_id);
@@ -61,13 +42,5 @@ public class AlertController {
         return alertService.createAlert(alert);
     }
 
-    /**
-     * DELETE api/alerts/
-     * @param id Long
-     */
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id){
-        alertService.deleteAlert(id);
-    }
 
 }

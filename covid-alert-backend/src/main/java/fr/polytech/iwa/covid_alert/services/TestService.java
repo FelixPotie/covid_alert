@@ -28,23 +28,6 @@ public class TestService {
     @Autowired
     private MailService mailService;
 
-    /**
-     * @param id Long
-     * @return the test by id
-     */
-    public Test getTest(Long id){
-        if(testRepository.findById(id).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Test with ID "+id+" not found");
-        }
-        return testRepository.getOne(id);
-    }
-
-    /**
-     * @return all the tests
-     */
-    public List<Test> getAllTests() {
-        return testRepository.findAll();
-    }
 
     public List<Test> getTestByUserId(String user_id) {
         return testRepository.findTestsByUser_id(user_id);
@@ -60,20 +43,12 @@ public class TestService {
      */
     public Test createTest( final Test test){
         String user_id=test.getUser_id();
-        //List<User> contacts_cases  = contactService.getContacts(user_id);
         Map<User, Date> contacts_cases = contactService.getContactsWithDate(user_id);
         contacts_cases.forEach((contact,date) -> {
             mailService.sendEmail(contact.getEmail(),date);
         });
 
         return testRepository.saveAndFlush(test);
-    }
-
-    /**
-     * @param id Long
-     */
-    public void deleteTest( Long id){
-        testRepository.deleteById(id);
     }
 
 

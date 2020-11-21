@@ -15,25 +15,6 @@ public class AlertService {
     @Autowired
     private AlertRepository alertRepository;
 
-    /**
-     * @param id Long
-     * @return the Alert by id
-     */
-
-    public Alert getAlert(Long id){
-        if(alertRepository.findById(id).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Alert with ID "+id+" not found");
-        }
-        return alertRepository.getOne(id);
-    }
-
-    /**
-     * @return all the Alert
-     */
-
-    public List<Alert> getAllAlerts() {
-        return alertRepository.findAll();
-    }
 
     /**
      *
@@ -56,15 +37,6 @@ public class AlertService {
     public Alert createAlert( final Alert alert){
         return alertRepository.saveAndFlush(alert);
     }
-
-    /**
-     *
-     * @param id Long
-     */
-    public void deleteAlert( Long id){
-        alertRepository.deleteById(id);
-    }
-
 
 
 }

@@ -23,24 +23,6 @@ public class ContactService {
     @Autowired
     private UserService userService ;
 
-    /**
-     * @param id Long
-     * @return the contact by the id
-     */
-    public Contact getContact(Long id){
-        if(contactRepository.findById(id).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Alert with ID "+id+" not found");
-        }
-        return contactRepository.getOne(id);
-    }
-
-    /**
-     * @return all the contacts
-     */
-    public List<Contact> getAllContacts() {
-        return contactRepository.findAll();
-    }
-
 
     /**
      * @param user_id String
@@ -74,14 +56,6 @@ public class ContactService {
     public Contact createContact( final Contact contact){
         return contactRepository.saveAndFlush(contact);
     }
-
-    /**
-     * @param id Long
-     */
-    public void deleteContact( Long id){
-        contactRepository.deleteById(id);
-    }
-
 
 
 

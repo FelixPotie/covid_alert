@@ -19,33 +19,6 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    /**
-     *GET api/contacts/{id}
-     * @param id Long
-     * @return the contact id
-     */
-    @GetMapping(value = "/{id}")
-    public Contact get(@PathVariable Long id) {
-        return contactService.getContact(id);
-    }
-
-    /**
-     * GET api/contacts/
-     * @return all the contacts
-     */
-    @GetMapping
-    public List<Contact> get() {
-        return contactService.getAllContacts();
-    }
-
-    /**
-     * GET api/contacts/user/{id}
-     * @return all the contacts of the user during the last week
-     */
-    @GetMapping(value = "/user/{id}")
-    public Map<User, Date> getContacts(@PathVariable String id){
-        return contactService.getContactsWithDate(id);
-    }
 
     /**
      * POST api/contacts/
@@ -62,15 +35,5 @@ public class ContactController {
     public Contact create(@RequestBody final Contact contact){
         return contactService.createContact(contact);
     }
-
-    /**
-     * DELETE api/contacts/{id}
-     * @param id Long
-     */
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id){
-        contactService.deleteContact(id);
-    }
-
 
 }

@@ -14,29 +14,9 @@ import java.util.List;
 @RequestMapping("api/tests")
 public class TestController {
 
-
     @Autowired
     private TestService testService;
 
-
-    /**
-     * GET api/tests/{id}
-     * @param id Long
-     * @return the test by id
-     */
-    @GetMapping(value = "/{id}")
-    public Test get(@PathVariable Long id) {
-        return testService.getTest(id);
-    }
-
-    /**
-     * GET api/tests/
-     * @return all the tests
-     */
-    @GetMapping
-    public List<Test> get() {
-        return testService.getAllTests();
-    }
 
     /**
      * GET api/tests/user/{id}
@@ -63,13 +43,5 @@ public class TestController {
         return testService.createTest(test);
     }
 
-    /**
-     * DELETE api/tests/
-     * @param id Long
-     */
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id){
-        testService.deleteTest(id);
-    }
 
 }
