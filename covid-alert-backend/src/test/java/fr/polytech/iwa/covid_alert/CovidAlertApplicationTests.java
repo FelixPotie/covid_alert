@@ -1,13 +1,18 @@
 package fr.polytech.iwa.covid_alert;
 
+import fr.polytech.iwa.covid_alert.controllers.UserController;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 class CovidAlertApplicationTests {
+	@Autowired
+	private UserController userController;
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() throws Exception {
+		assertThat(userController).isNotNull();
 	}
-
 }

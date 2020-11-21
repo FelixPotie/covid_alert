@@ -15,7 +15,19 @@ public class Test {
     private Date test_date;
     private String user_id;
 
+    public Test() {
+    }
 
+    public Test(Date test_date, String user_id) {
+        this.test_date = test_date;
+        this.user_id = user_id;
+    }
+
+    public Test(long test_id, Date test_date, String user_id) {
+        this.test_id = test_id;
+        this.test_date = test_date;
+        this.user_id = user_id;
+    }
 
     // ---------------------------- GETTER & SETTER -------------------------------
 

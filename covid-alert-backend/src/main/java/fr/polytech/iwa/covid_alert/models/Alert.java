@@ -16,6 +16,15 @@ public class Alert {
     private Date alert_date;
     private String user_id;
 
+    public Alert() {
+    }
+
+    public Alert(long alert_id, Date contamination_date, Date alert_date, String user_id) {
+        this.alert_id = alert_id;
+        this.contamination_date = contamination_date;
+        this.alert_date = alert_date;
+        this.user_id = user_id;
+    }
 
     // ---------------------------- GETTER & SETTER -------------------------------
 
