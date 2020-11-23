@@ -15,6 +15,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public UserService() {
+        System.out.println("Constructor print ici UserService");
+    }
+
     /**
      *
      * @param id String

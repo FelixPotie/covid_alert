@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    @Query("select c from contacts c where c.first_user_id = ?1 or c.second_user_id = ?2")
-    List<Contact> findContactsByFirst_user_idOrSecond_user_idAndContact(String first_user_id, String second_user_id);
+    @Query("select c from contacts c where c.first_user_id = ?1 or c.second_user_id = ?1")
+    List<Contact> findContactsByFirst_user_idOrSecond_user_idAndContact(String first_user_id);
 
 }

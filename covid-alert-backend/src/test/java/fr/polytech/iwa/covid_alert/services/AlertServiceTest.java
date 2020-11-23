@@ -2,10 +2,7 @@ package fr.polytech.iwa.covid_alert.services;
 
 
 import fr.polytech.iwa.covid_alert.models.Alert;
-import fr.polytech.iwa.covid_alert.models.Contact;
-import fr.polytech.iwa.covid_alert.models.User;
 import fr.polytech.iwa.covid_alert.repositories.AlertRepository;
-import fr.polytech.iwa.covid_alert.repositories.ContactRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.Map;
 
 import static org.mockito.Mockito.doReturn;
 
@@ -24,7 +20,6 @@ public class AlertServiceTest {
 
     @Autowired
     private AlertService service;
-
     @MockBean
     private AlertRepository repository;
 
@@ -39,8 +34,7 @@ public class AlertServiceTest {
         // Execute the service call
         Alert returnedAlert = service.createAlert(mockAlert);
 
-
-        Assertions.assertNotNull(returnedAlert,"Contact was found");
+        Assertions.assertNotNull(returnedAlert,"Alert was created");
         Assertions.assertSame(returnedAlert,mockAlert);
 
     }
