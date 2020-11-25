@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import VerticalSpacer from "../commonComponents/VerticalSpacer";
 import CaButton from "../commonComponents/CaButton";
 import TextField from "@material-ui/core/TextField";
+import { postTest } from "../api/test";
 
 const StyledGrid = styled(Grid)`
  justify-content:center;
@@ -25,11 +26,11 @@ display:inline-flex;
 
 
 
-
 function Test(){
     let history=useHistory();
     function addTest() {
-        //Todo
+        postTest()
+        
     }
     return(
         <Grid container>

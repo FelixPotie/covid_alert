@@ -1,13 +1,12 @@
 import axios from 'axios'
 import { buildOrganizationApiUrl } from './configuration'
-import keycloak from './keycloak'
+import {keycloak} from './../keycloak'
 
-export const postTest = (data) => axios.post(buildOrganizationApiUrl('test'), {
+date = Date()
+export const postTest = (date) => axios.post(buildOrganizationApiUrl(`test`), {
     headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${keycloak.instance.token}`
-    },
-    data
+    }
 })      
 .then((response) => {
     console.log("test enregistré")
