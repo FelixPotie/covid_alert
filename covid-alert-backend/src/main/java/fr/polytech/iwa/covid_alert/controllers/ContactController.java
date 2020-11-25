@@ -21,6 +21,15 @@ public class ContactController {
 
 
     /**
+     * GET api/contacts/user/{id}
+     * @return all the contacts of the user during the last week
+     */
+    @GetMapping(value = "/user/{id}")
+    public Map<User, Date> getContacts(@PathVariable String id){
+        return contactService.getContactsWithDate(id);
+    }
+
+    /**
      * POST api/contacts/
      *  json data :
      *      - long contact_id
