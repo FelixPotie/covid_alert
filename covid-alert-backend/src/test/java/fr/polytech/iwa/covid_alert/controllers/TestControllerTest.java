@@ -1,20 +1,12 @@
 package fr.polytech.iwa.covid_alert.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.polytech.iwa.covid_alert.config.KeycloakSecurityConfig;
 import fr.polytech.iwa.covid_alert.models.Test;
 import fr.polytech.iwa.covid_alert.services.TestService;
 import org.junit.jupiter.api.DisplayName;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
@@ -24,12 +16,14 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = TestController.class)
+//@WebMvcTest(controllers = TestController.class)
+@SpringBootTest
 public class TestControllerTest {
-    @Autowired
+//    @Autowired
     private MockMvc mockMvc;
 
     @MockBean

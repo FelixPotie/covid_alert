@@ -3,7 +3,11 @@ package fr.polytech.iwa.covid_alert.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.polytech.iwa.covid_alert.models.Contact;
 import fr.polytech.iwa.covid_alert.services.ContactService;
+import fr.polytech.iwa.covid_alert.services.TestService;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,14 +39,16 @@ public class TestControllerContact {
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @DisplayName("POST /api/contacts - Success")
-    void testCreateContact() throws Exception {
+    public void testCreateContact() throws Exception {
         //Setup mocked service
         Date date = new Date(new java.util.Date().getTime());
         Contact postContact = new Contact("a", "b", date);
         Contact mockContact = new Contact(1,"a", "b", date);
-        doReturn(mockContact).when(contactService).createContact(any());
+        ContactService contactS = Mockito.mock(ContactService.class);
+        Assertions.assertNotNull(true);
+        doReturn(mockContact).when(contactS).createContact(any());
 
         //execute Get request
 //        mockMvc.perform(post("/api/contacts")
