@@ -16,7 +16,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserService() {
-        System.out.println("Constructor print ici UserService");
     }
 
     /**
