@@ -1,35 +1,37 @@
 package fr.polytech.iwa.covid_alert.services;
 
 import fr.polytech.iwa.covid_alert.models.Contact;
-import fr.polytech.iwa.covid_alert.models.Test;
 import fr.polytech.iwa.covid_alert.models.User;
 import fr.polytech.iwa.covid_alert.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
-public class ContactService {
-
+public class ContactService{
     @Autowired
-    private ContactRepository contactRepository;
-
+    private   ContactRepository contactRepository;
     @Autowired
-    private UserService userService ;
+    private  fr.polytech.iwa.covid_alert.services.UserService userService;
 
+    public void setContactRepository(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * @param user_id String
      * @return all the contacts of the user with the oldest date of contamination
      */
     public Map<User, Date> getContactsWithDate(String user_id){
-        List<Contact> contacts = contactRepository.findContactsByFirst_user_idOrSecond_user_idAndContact(user_id, user_id);
+        List<Contact> contacts = contactRepository.findContactsByFirst_user_idOrSecond_user_idAndContact(user_id);
         Map<User, Date> contacts_cases = new HashMap<User, Date>();
         contacts.forEach(contact ->{
             User u;
@@ -53,10 +55,10 @@ public class ContactService {
      * @param contact Contact
      * @return the Contact created
      */
+
     public Contact createContact( final Contact contact){
         return contactRepository.saveAndFlush(contact);
     }
-
 
 
 }

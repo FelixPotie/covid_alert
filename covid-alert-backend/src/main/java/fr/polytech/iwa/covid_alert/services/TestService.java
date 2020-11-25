@@ -23,11 +23,19 @@ public class TestService {
 
     @Autowired
     private TestRepository testRepository;
+
     @Autowired
     private ContactService contactService;
     @Autowired
     private MailService mailService;
 
+    public void setContactService(ContactService contactService) {
+        this.contactService = contactService;
+    }
+
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
 
     public List<Test> getTestByUserId(String user_id) {
         return testRepository.findTestsByUser_id(user_id);
