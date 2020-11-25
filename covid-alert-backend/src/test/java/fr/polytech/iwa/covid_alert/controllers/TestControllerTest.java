@@ -27,10 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@SpringBootTest
-//@WebMvcTest(controllers = TestController.class)
+@WebMvcTest(controllers = TestController.class)
 public class TestControllerTest {
-//    @Autowired
+    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
