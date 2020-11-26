@@ -13,16 +13,16 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-//@ExtendWith(SpringExtension.class)
-//@WebMvcTest(controllers = TestController.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TestControllerTest {
@@ -32,12 +32,8 @@ public class TestControllerTest {
     @MockBean
     private TestService testService;
 
-//    @Value("${keycloak.realm}")
-//    String str;
-
     private String asJsonString(Object obj) {
         try {
-            System.out.println(new ObjectMapper().writeValueAsString(obj));
             return new ObjectMapper().writeValueAsString(obj);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -47,7 +43,6 @@ public class TestControllerTest {
     @org.junit.jupiter.api.Test
     @DisplayName("POST /api/tests - Success")
     public void testCreateTest() throws Exception {
-//        System.out.println(str);
         //Setup mocked service
         Date date = new Date(new java.util.Date().getTime());
         Test postTest = new Test(date, "a");
@@ -58,7 +53,7 @@ public class TestControllerTest {
         mockMvc.perform(post("/api/tests")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(asJsonString(postTest)))
-////                Validate response code and content type
+//                Validate response code and content type
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 //                Validate returned fields
@@ -66,4 +61,23 @@ public class TestControllerTest {
                 .andExpect(jsonPath("$.test_date", is(date.toString())))
                 .andExpect(jsonPath("$.user_id", is("a")));
     }
+
+//    @org.junit.jupiter.api.Test
+//    @DisplayName("GET /api/tests/1 - Found")
+//    public void testGetTest() throws Exception {
+//        //Setup mocked service
+//        Date date = new Date(new java.util.Date().getTime());
+//        Test mockTest = new Test(1, date, "a");
+//        doReturn(Arrays.asList(mockTest)).when(testService).getTestByUserId("a");
+//
+//        //execute Post request
+//        mockMvc.perform(get("/api/tests/{id}", "a"))
+////                Validate response code and content type
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+////                Validate returned fields
+//                .andExpect(jsonPath("$.test_id", is(1)))
+//                .andExpect(jsonPath("$.test_date", is(date.toString())))
+//                .andExpect(jsonPath("$.user_id", is("a")));
+//    }
 }
