@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import InfoPart from "../commonComponents/InfoPart";
 import VerticalSpacer from "../commonComponents/VerticalSpacer";
@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box";
 import { blue, red } from "../commonComponents/Colors";
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import { useHistory } from "react-router-dom";
+import CaButton from "../commonComponents/CaButton";
 import { postLocation } from "./../api/location"
 import schedule from "node-schedule"
 
@@ -44,42 +45,27 @@ color:${red};
 `;
 
 function Location() {
-
-    React.useEffect(() => {
-        scheduleSending();
-    }, [])
-
-    const scheduleSending = () => {
-        var ruleSendEvery5M = new schedule.RecurrenceRule();
-        ruleSendEvery5M.minute = [0, 5, 10, 15, 20, 25, 28, 30, 35, 40, 45, 50, 55];
-        schedule.scheduleJob(ruleSendEvery5M, function () {
-            sendLocation();
-        });
-    }
-
     let history = useHistory();
-    const [locationActivate, setLocationActivate] = useState(true);
-    const [currentPosition, setCurrentPosition] = useState(null)
+    const [locationActivate, setLocationActivate] = useState(false);
+
+    useEffect(() => {
+        const locationActivation = setInterval(() => locationActivate && sendLocation(), 5 * 1e3)
+        return () => clearInterval(locationActivation)
+    })
 
     function onToggle() {
-        setLocationActivate(!locationActivate);
-        setCurrentPosition(null)
-        console.log(locationActivate);
-        sendLocation()
+        setLocationActivate(!locationActivate)
+        if (!locationActivate) sendLocation()
     }
 
     function sendLocation() {
-        if (locationActivate) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                console.log(position.coords)
-                setCurrentPosition({
-                    timestamp: position.timestamp,
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                })
-                postLocation(currentPosition)
-            });
-        }
+        navigator.geolocation.getCurrentPosition(function (position) {
+            postLocation({
+                timestamp: position.timestamp,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            })
+        });
     }
 
     return (
@@ -94,23 +80,30 @@ function Location() {
                     </HomeBox>
 
                     <h1>Location</h1>
+                    {/* <div>{count}</div> */}
                     <VerticalSpacer spacing={8} />
                     <StyledBox>
-                        <CaSwitch checked={!locationActivate} onToggle={() => onToggle()} />
-                        {!locationActivate ? (<TrueTypo variant={'h6'}>Location ENABLED </TrueTypo>) : (<FalseTypo variant={'h6'}>Location DISABLED </FalseTypo>)}
+                        <CaSwitch checked={locationActivate} onToggle={() => onToggle()} />
+                        {!locationActivate ? (<FalseTypo variant={'h6'}>Location DISABLED </FalseTypo>) : (<TrueTypo variant={'h6'}>Location ENABLED </TrueTypo>)}
                     </StyledBox>
                     <VerticalSpacer spacing={3} />
-                    <StyledBox2 >
-                        {currentPosition != null ?
-                            <Typography variant={"body1"}>
-                                <b>Current location :</b>{currentPosition.latitude},{currentPosition.longitude}
-                            </Typography> :
-                            <Typography variant={"body1"}>
-                                <b>Current location :</b> share your location
-                            </Typography>
-                        }
-                    </StyledBox2>
-
+		<CaButton color={"blue"} kind={"secondary"} margin={"0px 20px 0px 20px"} onClick={()=>postLocation({
+                timestamp: Date.now(),
+                latitude: "1.0",
+                longitude: "1.0"
+            })}>FakeLocation1 (1.0, 1.0)</CaButton>
+            <VerticalSpacer spacing={3} />
+		<CaButton color={"blue"} kind={"secondary"} margin={"0px 20px 0px 20px"} onClick={()=>postLocation({
+                timestamp: Date.now(),
+                latitude: "1.0",
+                longitude: "1.5"
+            })}>FakeLocation2 (1.0, 1.5)</CaButton>
+            <VerticalSpacer spacing={3} />
+		<CaButton color={"blue"} kind={"secondary"} margin={"0px 20px 0px 20px"} onClick={()=>postLocation({
+                timestamp: Date.now(),
+                latitude: "3.0",
+                longitude: "3.0"
+            })}>FakeLocation3 (3.0, 3.0)</CaButton>
 
 
                 </Grid>
