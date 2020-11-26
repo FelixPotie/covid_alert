@@ -43,20 +43,20 @@ public class TestRepositoryTest {
 
     }
 
-    @Test
-    @DisplayName("Test createTest Success ")
-    void testCreateTest(){
-        //Setup our mock
-        Date date = new Date(Calendar.getInstance().getTime().getTime());
-        fr.polytech.iwa.covid_alert.models.Test mockTest = new fr.polytech.iwa.covid_alert.models.Test(1, date, "1");
-        doReturn(mockTest).when(repository).saveAndFlush(mockTest);
-
-        // Execute the service call
-        fr.polytech.iwa.covid_alert.models.Test returnedTest = repository.saveAndFlush(mockTest);
-
-        Assertions.assertNotNull(returnedTest,"Test was created");
-        Assertions.assertSame(returnedTest,mockTest);
-
-    }
+//    @Test
+//    @DisplayName("Test createTest Success ")
+//    void testCreateTest(){
+//        //Setup our mock
+//        Date date = new Date(Calendar.getInstance().getTime().getTime());
+//        fr.polytech.iwa.covid_alert.models.Test mockTest = new fr.polytech.iwa.covid_alert.models.Test(1, date, "1");
+//        doReturn(mockTest).when(repository).saveAndFlush(mockTest);
+//
+//        // Execute the service call
+//        fr.polytech.iwa.covid_alert.models.Test returnedTest = repository.saveAndFlush(mockTest);
+//
+//        Assertions.assertNotNull(returnedTest,"Test was created");
+//        Assertions.assertSame(returnedTest,mockTest);
+//
+//    }
 
 }
