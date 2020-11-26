@@ -3,6 +3,7 @@ package fr.polytech.iwa.covid_alert.controllers;
 
 import fr.polytech.iwa.covid_alert.models.Location;
 import fr.polytech.iwa.covid_alert.models.Test;
+import fr.polytech.iwa.covid_alert.models.TestData;
 import fr.polytech.iwa.covid_alert.services.TestService;
 import org.keycloak.KeycloakPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @CrossOrigin
@@ -21,7 +23,6 @@ public class TestController {
 
     @Autowired
     private TestService testService;
-
 
     /**
      * GET api/tests/{id}
@@ -65,25 +66,26 @@ public class TestController {
      *
      * @return the Test created
      */
-    @PostMapping("/{timestamp}")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Test create(
-            @PathVariable Long timestamp,
+            @RequestBody TestData body,
             @RequestHeader String Authorization) throws Exception {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(principal instanceof KeycloakPrincipal))
             throw new Exception("Authentication error");
         else {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(format.parse(body.getDate()).getTime());
             Test test = new Test();
+            test.setTest_date(date);
             test.setUser_id(((KeycloakPrincipal) principal).getName());
-            test.setTest_date(new Date(timestamp));
-            return test;
+            return testService.createTest(test);
         }
     }
 
     /**
      * DELETE api/tests/
-     *
      * @param id Long
      */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
