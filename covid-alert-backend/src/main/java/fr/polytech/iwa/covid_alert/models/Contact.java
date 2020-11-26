@@ -26,6 +26,12 @@ public class Contact {
         this.contact_date = contact_date;
     }
 
+    public Contact(String first_user_id, String second_user_id, Date contact_date) {
+        this.first_user_id = first_user_id;
+        this.second_user_id = second_user_id;
+        this.contact_date = contact_date;
+    }
+
     // ---------------------------- GETTER & SETTER -------------------------------
 
 
