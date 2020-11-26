@@ -21,13 +21,20 @@ import java.util.Map;
 @Service
 public class TestService {
 
-    @Autowired
+//    @Autowired
     private TestRepository testRepository;
 
-    @Autowired
+//    @Autowired
     private ContactService contactService;
-    @Autowired
+//    @Autowired
     private MailService mailService;
+
+    public TestService(TestRepository testRepository, ContactService contactService, MailService mailService) {
+        System.out.println("Test service called");
+        this.testRepository = testRepository;
+        this.contactService = contactService;
+        this.mailService = mailService;
+    }
 
     public void setContactService(ContactService contactService) {
         this.contactService = contactService;

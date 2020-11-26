@@ -23,7 +23,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(controllers = ContactController.class)
-@AutoConfigureMockMvc
+//@AutoConfigureMockMvc
 public class TestControllerContact {
     @Autowired
     private MockMvc mockMvc;
@@ -46,9 +46,9 @@ public class TestControllerContact {
         Date date = new Date(new java.util.Date().getTime());
         Contact postContact = new Contact("a", "b", date);
         Contact mockContact = new Contact(1,"a", "b", date);
-        ContactService contactS = Mockito.mock(ContactService.class);
-        Assertions.assertNotNull(true);
-        doReturn(mockContact).when(contactS).createContact(any());
+//        ContactService contactS = Mockito.mock(ContactService.class);
+//        Assertions.assertNotNull(true);
+        doReturn(mockContact).when(contactService).createContact(any());
 
         //execute Get request
 //        mockMvc.perform(post("/api/contacts")
