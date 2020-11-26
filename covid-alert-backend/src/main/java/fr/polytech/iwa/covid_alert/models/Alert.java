@@ -19,6 +19,12 @@ public class Alert {
     public Alert() {
     }
 
+    public Alert(Date contamination_date, Date alert_date, String user_id) {
+        this.contamination_date = contamination_date;
+        this.alert_date = alert_date;
+        this.user_id = user_id;
+    }
+
     public Alert(long alert_id, Date contamination_date, Date alert_date, String user_id) {
         this.alert_id = alert_id;
         this.contamination_date = contamination_date;

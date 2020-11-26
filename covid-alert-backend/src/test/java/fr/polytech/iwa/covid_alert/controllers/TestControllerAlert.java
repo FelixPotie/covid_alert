@@ -1,8 +1,9 @@
 package fr.polytech.iwa.covid_alert.controllers;
 
-import fr.polytech.iwa.covid_alert.models.Test;
-import fr.polytech.iwa.covid_alert.services.TestService;
+import fr.polytech.iwa.covid_alert.models.Alert;
+import fr.polytech.iwa.covid_alert.services.AlertService;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,66 +21,63 @@ import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestControllerTest {
+public class TestControllerAlert {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private TestService testService;
+    private AlertService alertService;
 
-    @org.junit.jupiter.api.Test
-    @DisplayName("POST /api/tests - Success")
-    public void testCreateTest() throws Exception {
-        //Setup mocked service
+    @Test
+    @DisplayName("POST /api/alerts - Success")
+    public void testCreateAlert() throws Exception {
         Date date = new Date(new java.util.Date().getTime());
-        Test postTest = new Test(date, "a");
-        Test mockTest = new Test(1, date, "a");
-        doReturn(mockTest).when(testService).createTest(any());
+        Alert postAlert = new Alert(date, date, "a");
+        Alert mockAlert = new Alert(1, date, date, "a");
+        doReturn(mockAlert).when(alertService).createAlert(any());
 
-        //execute Post request
-        mockMvc.perform(post("/api/tests")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(JsonString.asJsonString(postTest)))
-//                Validate response code and content type
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-//                Validate returned fields
-                .andExpect(jsonPath("$.test_id", is(1)))
-                .andExpect(jsonPath("$.test_date", is(date.toString())))
-                .andExpect(jsonPath("$.user_id", is("a")));
+        mockMvc.perform(post("/api/alerts")
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .content(JsonString.asJsonString(postAlert)))
+        .andExpect(status().isCreated())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(jsonPath("$.alert_id", is(1)))
+        .andExpect(jsonPath("$.user_id", is("a")))
+        .andExpect(jsonPath("$.contamination_date", is(date.toString())))
+        .andExpect(jsonPath("$.alert_date", is(date.toString())));
     }
 
-    @org.junit.jupiter.api.Test
-    @DisplayName("GET /api/tests/user/1 - Found")
-    public void testGetTestByIdTest() throws Exception {
+    @Test
+    @DisplayName("GET /api/alerts/user/1 - Found")
+    public void testGetAlertByIdTest() throws Exception {
         //Setup mocked service
         Date date = new Date(new java.util.Date().getTime());
-        Test mockTest = new Test(1, date, "a");
-        doReturn(Arrays.asList(mockTest)).when(testService).getTestByUserId("a");
+        Alert mockAlert = new Alert(1, date, date, "a");
+        doReturn(Arrays.asList(mockAlert)).when(alertService).getAlertByUserId("a");
 
         //execute Get request
-        mockMvc.perform(get("/api/tests/user/{id}", "a"))
+        mockMvc.perform(get("/api/alerts/user/{id}", "a"))
 //                Validate response code and content type
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 //                Validate returned fields
                 .andExpect(jsonPath("$.*", isA(ArrayList.class)))
                 .andExpect(jsonPath("$.*", hasSize(1)))
-                .andExpect(jsonPath("$[0].test_id", is(1)))
-                .andExpect(jsonPath("$[0].test_date", is(date.toString())))
+                .andExpect(jsonPath("$[0].alert_id", is(1)))
+                .andExpect(jsonPath("$[0].contamination_date", is(date.toString())))
+                .andExpect(jsonPath("$[0].alert_date", is(date.toString())))
                 .andExpect(jsonPath("$[0].user_id", is("a")));
     }
 
-    @org.junit.jupiter.api.Test
-    @DisplayName("GET /api/tests/user/1 - Not Found")
+    @Test
+    @DisplayName("GET /api/alerts/user/1 - Not Found")
     public void testGetTestByIdNotFoundTest() throws Exception {
-        doReturn(Arrays.asList()).when(testService).getTestByUserId("a");
+        doReturn(Arrays.asList()).when(alertService).getAlertByUserId("a");
 
-        mockMvc.perform(get("/api/tests/user/{id}","a"))
+        mockMvc.perform(get("/api/alerts/user/{id}","a"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.*", isA(ArrayList.class)))

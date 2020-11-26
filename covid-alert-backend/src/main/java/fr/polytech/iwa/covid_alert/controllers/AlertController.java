@@ -27,7 +27,7 @@ public class AlertController {
     }
 
     /**
-     * POST api/tests/
+     * POST api/alerts/
      *  json data :
      *      - long alert_id
      *      - Date contamination_date
