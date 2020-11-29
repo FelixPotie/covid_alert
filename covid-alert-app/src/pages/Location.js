@@ -49,7 +49,7 @@ function Location() {
     const [locationActivate, setLocationActivate] = useState(false);
 
     useEffect(() => {
-        const locationActivation = setInterval(() => locationActivate && sendLocation(), 5 * 1e3)
+        const locationActivation = setInterval(() => locationActivate && sendLocation(), 300 * 1e3)
         return () => clearInterval(locationActivation)
     })
 
