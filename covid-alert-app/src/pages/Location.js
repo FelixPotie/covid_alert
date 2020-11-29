@@ -87,24 +87,6 @@ function Location() {
                         {!locationActivate ? (<FalseTypo variant={'h6'}>Location DISABLED </FalseTypo>) : (<TrueTypo variant={'h6'}>Location ENABLED </TrueTypo>)}
                     </StyledBox>
                     <VerticalSpacer spacing={3} />
-		<CaButton color={"blue"} kind={"secondary"} margin={"0px 20px 0px 20px"} onClick={()=>postLocation({
-                timestamp: Date.now(),
-                latitude: "1.0",
-                longitude: "1.0"
-            })}>FakeLocation1 (1.0, 1.0)</CaButton>
-            <VerticalSpacer spacing={3} />
-		<CaButton color={"blue"} kind={"secondary"} margin={"0px 20px 0px 20px"} onClick={()=>postLocation({
-                timestamp: Date.now(),
-                latitude: "1.0",
-                longitude: "1.5"
-            })}>FakeLocation2 (1.0, 1.5)</CaButton>
-            <VerticalSpacer spacing={3} />
-		<CaButton color={"blue"} kind={"secondary"} margin={"0px 20px 0px 20px"} onClick={()=>postLocation({
-                timestamp: Date.now(),
-                latitude: "3.0",
-                longitude: "3.0"
-            })}>FakeLocation3 (3.0, 3.0)</CaButton>
-
 
                 </Grid>
             </StyledGrid>
