@@ -3,7 +3,6 @@ package fr.polytech.iwa.covid_alert.kafka;
 import fr.polytech.iwa.covid_alert.controllers.ContactController;
 import fr.polytech.iwa.covid_alert.models.Contact;
 import fr.polytech.iwa.covid_alert.models.Location;
-import fr.polytech.iwa.covid_alert.services.ContactService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,7 +24,7 @@ public class KafkaConsumer {
     //Date stamp for storing location each MAX_DURATION
     private Date lastDateRecorded;
     private List<Location> locationsIn5Minutes = new ArrayList<>();
-    private static long MAX_DURATION = MILLISECONDS.convert(15, SECONDS);
+    private static long MAX_DURATION = MILLISECONDS.convert(15, MINUTES);
     private static double MAX_LAT_LONG = 1.0;
 
     @Autowired
@@ -56,7 +54,7 @@ public class KafkaConsumer {
             System.out.println("+ de 15 min");
             lastDateRecorded = newDate;
             compareLocation(locationsIn5Minutes);
-//            locationsIn5Minutes = new ArrayList<>();
+            locationsIn5Minutes = new ArrayList<>();
         }
     }
 
