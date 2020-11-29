@@ -1,103 +1,31 @@
 import './App.css';
 import React  from 'react';
-import Button from '@material-ui/core/Button';
-import { Typography,StylesProvider } from '@material-ui/core';
-import styled, {ThemeProvider} from 'styled-components';
-import {appTheme} from './commonComponents/AppTheme';
-import Grid from "@material-ui/core/Grid";
-import {blueDark, redDark} from "./commonComponents/Colors";
-import VerticalSpacer from "./commonComponents/VerticalSpacer";
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
-
-const Title = styled.h1`
-  font-size: 50px;
-  text-align: center;
-  color: ${redDark};
-`;
-const SubTitle = styled.h2`
-  font-size: 40px;
-  text-align: center;
-  color: ${blueDark};
-`;
-const StyledBox = styled(Box)`
-    display:flex;
-    justify-content:center;
-`;
-
-const Caption = styled.h2`
-  font-size: 10px;
-  font-weight: normal;
-  text-align: center;
-  color: ${blueDark};
-`;
-
-const Styleda = styled.a`
-  font-size: 10px;
-   text-decoration: none;
-  font-weight: bold;
-  text-align: center;
-  color: ${blueDark};
-`;
-
+import Home from "./pages/Home";
+import {BrowserRouter as Router, Route,Switch} from "react-router-dom";
+import Registration from "./pages/Registration";
+import Page404 from "./pages/Page404";
+import Test from "./pages/Test";
+import Location from "./pages/Location";
+import { useKeycloak } from '@react-keycloak/web';
 
 function App() {
-    return (<div>
-        <ThemeProvider theme={appTheme}>
-            <StylesProvider injectFirst>
-                <Grid container >
-                    <Grid item xs={2}>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Title>Welcome To CovidAlert</Title>
-                    </Grid>
-                    <Grid item xs={2}>
-                    </Grid>
-                </Grid>
-                <Grid container>
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <SubTitle>Login</SubTitle>
-                        <VerticalSpacer spacing={6} />
-                        <TextField
-                            id="email-input"
-                            label="Email"
-                            type="email"
-                            variant="outlined"
-                            fullWidth
-                        />
-                        <VerticalSpacer spacing={6} />
-                        <TextField
-                            id="password-input"
-                            label="Password"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                        />
-                        <VerticalSpacer spacing={6} />
-                        <StyledBox>
-                            <Button variant="outlined" color="primary">
-                                Login
-                            </Button>
+    const {keycloak} = useKeycloak();
+    if (!keycloak.authenticated) {
+        return <div>loading</div>;
+    }
+    return (
 
-                        </StyledBox>
-                        <VerticalSpacer spacing={2} />
-                        <StyledBox>
-                            <Caption>Don’t have an account yet ?  <Styleda href="/">Create an account </Styleda> </Caption>
-                        </StyledBox>
+        <Router>
+            <Switch>
+                <Route path="/" exact component={Location}/>
+                <Route path="/home"  component={Home}/>
+                <Route path="/registration"  component={Registration}/>
+                <Route path="/location"  component={Location}/>
+                <Route path="/test"  component={Test}/>
+                <Route path="/"  component={Page404}/>
+            </Switch>
 
-                    </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
-
-                </Grid>
-            </StylesProvider>
-        </ThemeProvider>
-
-
-
-</div>
+        </Router>
     );
 }
 
