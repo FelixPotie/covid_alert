@@ -2,42 +2,49 @@ package fr.polytech.iwa.covid_alert.controllers;
 
 import fr.polytech.iwa.covid_alert.kafka.KafkaProducer;
 import fr.polytech.iwa.covid_alert.models.Location;
+import fr.polytech.iwa.covid_alert.models.LocationData;
+import org.keycloak.KeycloakPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Date;
+//import java.util.Date;
 
+
+@CrossOrigin
 @RestController
-//@RequestMapping("api/locations")
+@RequestMapping("api")
 public class LocationController {
     @Autowired
     private KafkaProducer kafkaProducer;
 
-    LocationController(KafkaProducer kafkaProducer){
-        kafkaProducer = kafkaProducer;
-    }
-
     /**
      * POST api/locations
-     * @param userId String
-     * @param latitude float
-     * @param longitude float
-     * @param date Date
+     * @param body LocationConst
+     * @param Authorization String
      * @return void
      */
     @PostMapping(value="/location")
-    public void sendMessageToKafkaTopic(
-            @RequestParam String userId,
-            @RequestParam float latitude,
-            @RequestParam float longitude,
-            @RequestParam Date date
-    ) {
-        Location location = new Location();
-        location.setUser_id(userId);
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
-        location.setLocation_date(date);
+    public Location sendMessageToKafkaTopic(
+            @RequestBody LocationData body,
+            @RequestHeader String Authorization
+    ) throws Exception {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(!(principal instanceof KeycloakPrincipal))
+             throw new Exception("Authentication error");
+        else {
+            Location location = new Location();
+            location.setLatitude(body.getLatitude());
+            location.setLongitude(body.getLongitude());
+            location.setLocation_date(new Date(body.getTimestamp()));
+            location.setUser_id(((KeycloakPrincipal)principal).getName());
+            this.kafkaProducer.saveLocation(location);
+            return location;
+        }
 
-        this.kafkaProducer.saveLocation(location);
+
+
+
     }
 }

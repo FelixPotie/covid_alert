@@ -1,16 +1,16 @@
 import axios from 'axios'
 import { buildOrganizationApiUrl } from './configuration'
-import keycloak from './keycloak'
+import {keycloak} from './../keycloak'
 
-export const postTest = (data) => axios.post(buildOrganizationApiUrl('test'), {
+
+export const postTest = (data) => axios.post(buildOrganizationApiUrl(`tests`), data, {
     headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${keycloak.instance.token}`
-    },
-    data
+    }
 })      
 .then((response) => {
-    console.log("test enregistré")
+    if(response.status === 201) console.log("Test enregistré")
+    else console.log(`error code ${response.status}`)
 })
 .catch((error) => {
     console.log('error : '+error.error)

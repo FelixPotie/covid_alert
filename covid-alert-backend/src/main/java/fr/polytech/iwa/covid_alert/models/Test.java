@@ -29,6 +29,10 @@ public class Test {
         this.user_id = user_id;
     }
 
+    public String toString(){
+        return "Test: ["+getTest_id()+", "+getUser_id()+", "+getTest_date()+"]";
+    }
+
     // ---------------------------- GETTER & SETTER -------------------------------
 
     public long getTest_id() {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Grid} from "@material-ui/core";
 import InfoPart from "../commonComponents/InfoPart";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import VerticalSpacer from "../commonComponents/VerticalSpacer";
 import CaButton from "../commonComponents/CaButton";
 import TextField from "@material-ui/core/TextField";
+import { postTest } from "../api/test";
 
 const StyledGrid = styled(Grid)`
  justify-content:center;
@@ -25,11 +26,12 @@ display:inline-flex;
 
 
 
-
 function Test(){
     let history=useHistory();
+    const [date, setDate] = useState("2020-11-27")
     function addTest() {
-        //Todo
+        postTest({date: date})
+        
     }
     return(
         <Grid container>
@@ -54,9 +56,12 @@ function Test(){
                         </Typography>
                         <form noValidate>
                             <TextField
+                                onChange={(event) => {
+                                    setDate(event.target.value);
+                                }}
                                 id="date"
                                 type="date"
-                                defaultValue="2020-11-09"
+                                defaultValue= "2020-11-27"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
